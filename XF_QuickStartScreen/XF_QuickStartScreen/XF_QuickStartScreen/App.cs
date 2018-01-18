@@ -56,7 +56,6 @@ namespace XF_QuickStartScreen
     {
         StackLayout ml;
         ContentView qsl; // iOS/Android 用
-        ContentView qslwp; // Windows Phone 用
         ContentView bl; // 黒背景
         bool qslVisible = true;
 
@@ -142,37 +141,7 @@ namespace XF_QuickStartScreen
                 },
             };
 
-            qslwp = new ContentView
-            {
-                Content = new StackLayout
-                {
-                    Padding = new Thickness(10, 70, 10, 0),
-                    VerticalOptions = LayoutOptions.FillAndExpand,
-                    Children = {
-                        new Image {
-                            Source = "QuickStartSwipe.png",
-                            WidthRequest = 460,
-                        },
-                        new Button {
-                            Text = "閉じる",
-                            TextColor = Color.White,
-                            BackgroundColor = Color.FromHex("49d849"),
-                            BorderRadius = 5,
-                            Command = new Command (()=>{
-                                qslwp.IsVisible = false;
-                                bl.IsVisible = false;
-                                qslVisible = false;
-                                Application.Current.Properties["qsl"] = qslVisible;
-                            }),
-                        },
-                        new Image {
-                            Source = "QuickStart.png",
-                            WidthRequest = 460,
-                        },
-                    },
-                },
-            };
-
+            
             abs.Children.Add(ml);
             if (Application.Current.Properties.ContainsKey("qsl"))
             {
@@ -182,7 +151,6 @@ namespace XF_QuickStartScreen
                     abs.Children.Add(bl);
                     if (Device.OS == TargetPlatform.WinPhone)
                     {
-                        abs.Children.Add(qslwp);
                     }
                     else
                     {
@@ -196,7 +164,6 @@ namespace XF_QuickStartScreen
                 abs.Children.Add(bl);
                 if (Device.OS == TargetPlatform.WinPhone)
                 {
-                    abs.Children.Add(qslwp);
                 }
                 else
                 {
@@ -231,6 +198,5 @@ namespace XF_QuickStartScreen
             AbsoluteLayout.SetLayoutBounds(qsl, new Rectangle(0d, 0d, w, h));
         }
     }
-
-
 }
+#endregion
